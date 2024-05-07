@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+# The init script manages manage_my_process
+
+# Path to the manage_my_process script
+MANAGE_SCRIPT="./manage_my_process"
+
+# Path to the PID file
+PID_FILE="/var/run/my_process.pid"
+
+# Function to start the process
+start_process() {
+    # Start manage_my_process
+    "$MANAGE_SCRIPT" &
+    PID=$!
+
+    # Write PID to the PID file
+    echo "$PID" > "$PID_FILE"
+    echo "manage_my_process started"
+}
+
+# Function to stop the process
+stop_process() {
+    # Stop manage_my_process
+    PID=$(cat "$PID_FILE")
+    kill "$PID"
+    rm "$PID_FILE"
+    echo "manage_my_process stopped"
+}
+
+# Function to restart the process
+restart_process() {
+    
+    # Stop manage_my_process
+    PID=$(cat "$PID_FILE")
+    kill "$PID"
+    rm "$PID_FILE"
+
+    # Start manage_my_process
+    "$MANAGE_SCRIPT" &
+    PID=$!
+
+    # Write PID to the PID file
+    echo "$PID" > "$PID_FILE"
+    echo "manage_my_process restarted"
+}
+
+# Main function
+main() {
+    case "$1" in
+        start)
+            start_process
+            ;;
+        stop)
+            stop_process
+            ;;
+        restart)
+            restart_process
+            ;;
+        *)
+            echo "Usage: $0 {start|stop|restart}"
+            exit 1
+            ;;
+    esac
+}
+
+# Call main function with provided arguments
+main "$@"
