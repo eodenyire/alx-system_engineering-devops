@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Use netstat to get information on listening sockets
+# -t: TCP connections, -u: UDP connections
+# -lp: listening ports, process ID, and program name
+netstat -l --program

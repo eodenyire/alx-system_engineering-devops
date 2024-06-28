@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Run 7-highlandhdhdhdhdjdkdlkdkl hdhdhdh
+
+pkill -f -SIGKILL 7-highlander
