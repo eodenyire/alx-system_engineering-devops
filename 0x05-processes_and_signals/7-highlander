@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# This script displays To infinity and beyond indefinitely and reacts to signals
+trap 'echo "I am invincible!!!"' SIGTERM
+trap 'echo "I am invincible!!!"' SIGINT
+while true; do
+    echo "To infinity and beyond"
+    sleep 2
+done
