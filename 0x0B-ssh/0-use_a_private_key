@@ -2,3 +2,6 @@
 # Connects to server 35.172.230.83 with key in ~/.ssh/school
 
 ssh -i "$HOME/.ssh/school" ubuntu@35.172.230.83
+
+# Print message upon exiting SSH session
+echo "Connection to 35.172.230.83 closed."
