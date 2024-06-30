@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# Displaying username, user id, and home directory path for each user in /etc/passwd
+
+# Open /etc/passwd for reading
+exec 3< /etc/passwd
+
+# Read line by line until the end of the file is reached
+while IFS=':' read -r username _ uid _ home _; do
+    echo "$username:$uid:$home"
+done <&3
+
+# Close the file descriptor
+exec 3<&-
