@@ -1,24 +1,41 @@
-#!/usr/bin/env bash
-# Script to configure Nginx to redirect /redirect_me to another page
+#!/bin/bash
 
-# Create the redirection configuration
-cat > /etc/nginx/sites-available/default <<EOF
+# Install Nginx if not already installed
+if ! command -v nginx &> /dev/null
+then
+    apt-get update
+    apt-get install -y nginx
+fi
+
+# Create a custom HTML file for redirection
+echo '<html><head><meta http-equiv="refresh" content="0; URL=http://cuberule.com/" /></head></html>' | sudo tee /etc/nginx/html/redirect_me.html > /dev/null
+
+# Configure Nginx to handle redirection
+sudo bash -c 'cat > /etc/nginx/sites-available/default <<EOF
 server {
     listen 80 default_server;
     listen [::]:80 default_server;
 
+    root /etc/nginx/html;
+    index index.html index.htm;
+
     server_name _;
 
-    location / {
-        root /var/www/html;
-        index index.html index.htm index.nginx-debian.html;
+    location /redirect_me {
+        return 301 http://cuberule.com/;
     }
 
-    location /redirect_me {
-        return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
+    location / {
+        try_files \$uri \$uri/ =404;
     }
 }
-EOF
+EOF'
 
-# Restart Nginx to apply changes
-service nginx restart
+# Reload Nginx to apply the configuration
+sudo /etc/init.d/nginx reload
+
+# Restart Nginx if it is not running
+sudo /etc/init.d/nginx restart
+
+# Verify Nginx status
+sudo /etc/init.d/nginx status
