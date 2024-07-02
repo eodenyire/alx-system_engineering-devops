@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# Script to install Nginx and configure it to serve "Hello World!" on port 80
+
+# Update package list and install Nginx
+apt-get update -y
+apt-get install nginx -y
+
+# Replace the default Nginx configuration
+cat > /var/www/html/index.nginx-debian.html <<EOF
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome to nginx!</title>
+</head>
+<body>
+    <h1>Hello World!</h1>
+</body>
+</html>
+EOF
+
+# Restart Nginx to apply changes
+service nginx restart
