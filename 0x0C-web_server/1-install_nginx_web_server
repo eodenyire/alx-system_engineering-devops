@@ -11,7 +11,7 @@ echo "Hello World!" > sudo tee /var/www/html/index.html
 sed -i 's/listen 80 default_server;/listen 80;/' /etc/nginx/sites-available/default
 sed -i 's/listen \[::\]:80 default_server;/listen \[::\]:80;/' /etc/nginx/sites-available/default
 
-# Reload Nginx to apply the changes without using systemctl
+# Reload Nginx to apply the changes without usi
 sudo /etc/init.d/nginx reload
 
 # Start nginx if not already running
