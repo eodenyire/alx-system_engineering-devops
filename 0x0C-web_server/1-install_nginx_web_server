@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
-# Configures a new ubuntu machine by installing
-# Nginx where it should be listening on port 80
-# Serve a page that would return a Hello World string
-#
-# colors
+# Configures a new Ubuntu machine by installing Nginx, which should be listening on port 80
+# and serve a page that returns a "Hello World" string.
+
+# Colors for output messages
 blue='\e[1;34m'
 brown='\e[0;33m'
 green='\e[1;32m'
@@ -11,27 +10,27 @@ reset='\033[0m'
 
 echo -e "${blue}Updating and installing ${brown}Nginx${blue}.${reset}\n"
 sudo apt-get update -y -qq && \
-	 sudo apt-get install nginx -y
+sudo apt-get install nginx -y
 
-echo -e "\n${blue}Setting up some minor stuff.${reset}\n"
+echo -e "\n${blue}Setting up Nginx and serving a custom page.${reset}\n"
 
-# starting nginx service
-sudo service nginx start
-
-# allowing nginx on firewall
+# Allowing Nginx on firewall
 sudo ufw allow 'Nginx HTTP'
 
-# Give the user ownership to website files for easy editing
-sudo chown -R "$USER":"$USER" /var/www/html
-sudo chmod -R 755 /var/www
+# Create a custom HTML file that contains "Hello World!"
+echo -e "Hello World!" | sudo tee /var/www/html/index.html
 
-# Backup default index
-cp /var/www/html/index.nginx-debian.html /var/www/html/index.nginx-debian.html.bckp
+# Ensure Nginx is listening on port 80 (default configuration)
+sudo sed -i 's/listen 80 default_server;/listen 80;/' /etc/nginx/sites-available/default
+sudo sed -i 's/listen \[::\]:80 default_server;/listen \[::\]:80;/' /etc/nginx/sites-available/default
 
-# Creating new index
-echo -e "Hello World!" | dd status=none of=/var/www/html/index.nginx-debian.html
+# Reload Nginx to apply the changes
+sudo service nginx reload
 
-# Restarting nginx
-sudo service nginx restart
+# Start Nginx if not already running
+sudo service nginx start
+
+# Check the status of Nginx to ensure it is running
+sudo service nginx status
 
 echo -e "\n${green}Completed.${reset} ✅\n"
