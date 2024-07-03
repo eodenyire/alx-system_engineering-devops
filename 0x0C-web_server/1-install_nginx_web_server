@@ -1,37 +1,9 @@
 #!/usr/bin/env bash
-# Configures a new Ubuntu machine by installing Nginx, which should be listening on port 80
-# and serve a page that returns a "Hello World" string.
+# Install nginx on web server; Nginx should be listening on port 80
 
-# Colors for output messages
-blue='\e[1;34m'
-brown='\e[0;33m'
-green='\e[1;32m'
-reset='\033[0m'
-
-echo -e "${blue}Updating package list and installing ${brown}Nginx${blue}.${reset}\n"
-sudo apt-get update -y -qq && sudo apt-get install nginx -y
-
-echo -e "\n${blue}Configuring Nginx to serve a custom page.${reset}\n"
-
-# Allowing Nginx on firewall
-sudo ufw allow 'Nginx HTTP'
-
-# Create a custom HTML file that contains "Hello World!"
-echo "Hello World!" | sudo tee /var/www/html/index.html
-
-# Ensure Nginx is listening on port 80 (default configuration)
-sudo sed -i 's|^# server_tokens off;|server_tokens off;|' /etc/nginx/nginx.conf
-sudo sed -i 's|^# include /etc/nginx/sites-enabled/\*;|include /etc/nginx/sites-enabled/\*;|' /etc/nginx/nginx.conf
-sudo sed -i 's|listen 80 default_server;|listen 80;|' /etc/nginx/sites-available/default
-sudo sed -i 's|listen \[::\]:80 default_server;|listen \[::\]:80;|' /etc/nginx/sites-available/default
-
-# Reload Nginx to apply the changes
-sudo service nginx reload
-
-# Start Nginx if not already running
-sudo service nginx start
-
-# Check the status of Nginx to ensure it is running
-sudo service nginx status
-
-echo -e "\n${green}Completed.${reset} ✅\n"
+sudo apt-get -y update
+sudo apt-get -y install nginx
+sudo ufw allow "Nginx HTTP"
+sudo chown -R $USER:$USER /var/www/html/index.nginx-debian.html
+sudo echo "Hello World!" > /var/www/html/index.nginx-debian.html
+sudo service nginx restart
