@@ -1,50 +1,20 @@
-# Define a class for Nginx configuration
-class nginx {
+#!/usr/bin/env bash
+# Install nginx on web server; Nginx should be listening on port 80
+# redirects to another page
+# Have a custom 404 page
 
-  # Include the standard nginx module
-  include puppet::package::nginx
+ADD301_REDIRECT="\\\tlocation /redirect_me {\n\t\t return 301 https://google.com;\n\t}\n"
+ADD404_NOTFOUND="error_page 404 /custom_404.html;\n\\tlocation = /custom_404.html {\n\t\t root /usr/share/nginx/html;\n\t\tinternal;\n\t}\n"
+PATTERN="#error_page 404 /404.html;"
 
-  # Ensure Nginx package is present
-  package { 'nginx': ensure => installed }
+sudo apt-get update
+sudo apt-get -y install nginx
+sudo service nginx start
 
-  # Configure Nginx service
-  service { 'nginx':
-    ensure => running,
-    enabled => true,
-    require => Package['nginx'],
-  }
+echo "Hello World!" | sudo tee /usr/share/nginx/html/index.html
+sudo sed -i "30i $ADD301_REDIRECT" /etc/nginx/sites-available/default #add at line 30
 
-  # Define root directory for the default server block
-  $www_dir = '/var/www/html'
+echo "Ceci n'est pas une page" | sudo tee /usr/share/nginx/html/custom_404.html
+sudo sed -i "s@$PATTERN@$ADD404_NOTFOUND@" /etc/nginx/sites-available/default #uncomment and replace
 
-  # Create the www directory if it doesn't exist
-  file { $www_dir:
-    ensure => directory,
-    owner => 'root',
-    group => 'root',
-    mode => '0755',
-  }
-
-  # Create a simple index.html file
-  file { $www_dir + '/index.html':
-    ensure => present,
-    content => '<!DOCTYPE html><html><body>Hello World!</body></html>',
-    owner => 'root',
-    group => 'root',
-    mode => '0644',
-  }
-
-  # Define server block for handling requests
-  nginx::resource::server { 'default':
-    port => 80,
-    server_name => ['localhost'],
-    www_root => $www_dir,
-    location => {
-      '/redirect_me' => {
-        rewrite_rules => [
-          '^ / permanent',
-        ],
-      },
-    }
-  }
-}
+sudo service nginx restart
