@@ -1,8 +1,4 @@
 #!/usr/bin/env bash
-# Install nginx on your web-01 server
-# Nginx should be listening on port 80
-# When querying Nginx at its root / with a GET request (requesting a page)
-# using curl, it must return a page that contains the string "Hello World!"
 
 # Update package list
 apt-get update
@@ -10,12 +6,25 @@ apt-get update
 # Install Nginx
 apt-get install -y nginx
 
-# Create a custom HTML file that contains "Hello World!"
+# Create a custom HTML file with "Hello World!"
 echo "Hello World!" > /var/www/html/index.html
 
-# Ensure Nginx is listening on port 80 (default configuration)
-sed -i 's/listen 80 default_server;/listen 80;/' /etc/nginx/sites-available/default
-sed -i 's/listen \[::\]:80 default_server;/listen \[::\]:80;/' /etc/nginx/sites-available/default
+# Ensure Nginx is listening on port 80 without default server configurations
+cat << 'EOF' > /etc/nginx/sites-available/default
+server {
+    listen 80;
+    listen [::]:80;
+
+    root /var/www/html;
+    index index.html index.htm;
+
+    server_name _;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}
+EOF
 
 # Restart Nginx to apply the changes
-service nginx restart
+systemctl restart nginx
