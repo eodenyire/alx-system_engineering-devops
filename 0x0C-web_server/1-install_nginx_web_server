@@ -1,21 +1,29 @@
 #!/usr/bin/env bash
+# Configures a new ubuntu machine by installing nginx
 
-# Update package list and install Nginx
-sudo apt-get -y update
-sudo apt-get -y install nginx
+echo -e "Updating and installing Nginx.\n"
+sudo apt-get update -y -qq && \
+	 sudo apt-get install nginx -y
 
-# Create a custom HTML file that contains "Hello World!"
-echo "Hello World!" > sudo tee /var/www/html/index.html
+echo -e "\nSetting up some minor stuff.\n"
 
-# Ensure Nginx is listening on port 80
-sed -i 's/listen 80 default_server;/listen 80;/' /etc/nginx/sites-available/default
-sed -i 's/listen \[::\]:80 default_server;/listen \[::\]:80;/' /etc/nginx/sites-available/default
+# start nginx service
+sudo service nginx start
 
-# Reload Nginx to apply the changes without usi
-sudo /etc/init.d/nginx reload
+# allow nginx on firewall
+sudo ufw allow 'Nginx HTTP'
 
-# Start nginx if not already running
-sudo /etc/init.d/nginx start
+# Give the user ownership to website files for easy editing
+sudo chown -R "$USER":"$USER" /var/www/html
+sudo chmod -R 755 /var/www
 
-# Check the status of Nginx to ensure it is running
-sudo /etc/init.d/nginx status
+# Backup default index
+cp /var/www/html/index.nginx-debian.html /var/www/html/index.nginx-debian.html.bckp
+
+# Creating new index
+echo -e "Hello World!" | dd status=none of=/var/www/html/index.nginx-debian.html
+
+# Restarting nginx
+sudo service nginx restart
+
+echo -e "\nCompleted. ✅\n"
