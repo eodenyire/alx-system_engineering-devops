@@ -8,21 +8,22 @@ brown='\e[0;33m'
 green='\e[1;32m'
 reset='\033[0m'
 
-echo -e "${blue}Updating and installing ${brown}Nginx${blue}.${reset}\n"
-sudo apt-get update -y -qq && \
-sudo apt-get install nginx -y
+echo -e "${blue}Updating package list and installing ${brown}Nginx${blue}.${reset}\n"
+sudo apt-get update -y -qq && sudo apt-get install nginx -y
 
-echo -e "\n${blue}Setting up Nginx and serving a custom page.${reset}\n"
+echo -e "\n${blue}Configuring Nginx to serve a custom page.${reset}\n"
 
 # Allowing Nginx on firewall
 sudo ufw allow 'Nginx HTTP'
 
 # Create a custom HTML file that contains "Hello World!"
-echo -e "Hello World!" | sudo tee /var/www/html/index.html
+echo "Hello World!" | sudo tee /var/www/html/index.html
 
 # Ensure Nginx is listening on port 80 (default configuration)
-sudo sed -i 's/listen 80 default_server;/listen 80;/' /etc/nginx/sites-available/default
-sudo sed -i 's/listen \[::\]:80 default_server;/listen \[::\]:80;/' /etc/nginx/sites-available/default
+sudo sed -i 's|^# server_tokens off;|server_tokens off;|' /etc/nginx/nginx.conf
+sudo sed -i 's|^# include /etc/nginx/sites-enabled/\*;|include /etc/nginx/sites-enabled/\*;|' /etc/nginx/nginx.conf
+sudo sed -i 's|listen 80 default_server;|listen 80;|' /etc/nginx/sites-available/default
+sudo sed -i 's|listen \[::\]:80 default_server;|listen \[::\]:80;|' /etc/nginx/sites-available/default
 
 # Reload Nginx to apply the changes
 sudo service nginx reload
