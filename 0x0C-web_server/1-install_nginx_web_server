@@ -28,3 +28,12 @@ EOF
 
 # Restart Nginx to apply the changes
 systemctl restart nginx
+
+# Check if Nginx is running and reload
+systemctl is-active --quiet nginx && systemctl reload nginx
+
+# Check if Nginx is listening on port 80
+netstat -tuln | grep ':80'
+
+# Verify that Nginx serves the correct content using curl
+curl -s http://localhost | grep -q "Hello World!"
