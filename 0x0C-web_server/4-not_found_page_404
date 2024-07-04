@@ -1,34 +1,40 @@
 #!/usr/bin/env bash
-# Update package lists and install nginx with -y to automatically accept prompts
-sudo apt-get update -y
-sudo apt-get install nginx -y
+# This script creates a custom 404 page
 
-# Create a custom 404 page
-echo "Ceci n'est pas une page" | sudo tee /var/www/html/custom_404.html
-
-# Create a backup of the default nginx configuration file
-sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.backup
-
-# Configure nginx to serve the custom 404 page
-sudo sed -i '/server_name _;/a \\tlocation /404.html {\n\t\troot /var/www/html;\n\t\tinternal;\n\t}\n' /etc/nginx/sites-available/default
-sudo sed -i '/server_name _;/a \\terror_page 404 /custom_404.html;' /etc/nginx/sites-available/default
-
-# Ensure Nginx is running and listening on port 80
-sudo service nginx start
-
-# Check if Nginx is already running, if not, start Nginx
-if ! pgrep -x "nginx" > /dev/null
+# Install Nginx if not already installed
+if ! command -v nginx &> /dev/null
 then
-    sudo service nginx start
+    sudo apt-get update
+    sudo apt-get install -y nginx
 fi
 
-# Restart Nginx without using systemctl
-sudo service nginx restart
+# Create custom 404 error page
+echo "Ceci n'est pas une page" | sudo tee /var/www/html/404.html > /dev/null
 
-# Ensure Nginx restarts properly
-if [ $? -ne 0 ]; then
-    echo "Nginx failed to start"
-    exit 1
-fi
+# Configure Nginx to use custom 404 page
+sudo bash -c 'cat > /etc/nginx/sites-available/default <<EOF
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
 
-echo "Nginx installed and configured successfully with custom 404 page."
+    root /var/www/html;
+    index index.html index.htm;
+
+    server_name _;
+
+    error_page 404 /404.html;
+
+    location / {
+        try_files \$uri \$uri/ =404;
+    }
+}
+EOF'
+
+# Reload Nginx to apply the configuration
+sudo /etc/init.d/nginx reload
+
+# Restart Nginx if it is not running
+sudo /etc/init.d/nginx restart
+
+# Verify Nginx status
+sudo /etc/init.d/nginx status
