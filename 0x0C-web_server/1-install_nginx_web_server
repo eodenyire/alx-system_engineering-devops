@@ -1,8 +1,15 @@
 #!/usr/bin/env bash
-# a Bash script that configures a new Ubuntu machine to respect above requirements
+# A Bash script that configures a new Ubuntu machine to respect above requirements
 # (this script will be run on the server itself)
 
+# Update the package list
 sudo apt-get update
+
+# Install Nginx
 sudo apt-get install nginx -y
-sudo echo "Hello World!" > /var/www/html/index.nginx-debian.html
+
+# Write "Hello World!" to the default Nginx page
+echo "Hello World!" | sudo tee /var/www/html/index.nginx-debian.html > /dev/null
+
+# Start the Nginx service
 sudo service nginx start
