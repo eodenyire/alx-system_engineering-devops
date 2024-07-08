@@ -8,14 +8,12 @@ sudo apt-get install -y nginx
 # Get the hostname
 HOSTNAME=$(hostname)
 
-mkdir -p /var/www/html
-touch /var/www/html/index.html
-echo "Hello World" > /var/www/html/index.html
-touch /var/www/html/404.html
-echo "Ceci n'est pas une page" > /var/www/html/404.html
+# Create a test index.html and 404.html
+echo "<html><body><h1>Hello, World!</h1></body></html>" | sudo tee /var/www/html/index.html
+echo "<html><body><h1>404 Not Found</h1></body></html>" | sudo tee /var/www/html/404.html
 
 # Configure Nginx to include the custom header
-cat <<EOL > /etc/nginx/sites-available/default
+sudo tee /etc/nginx/sites-available/default > /dev/null <<EOL
 server {
     listen 80 default_server;
     listen [::]:80 default_server;
@@ -37,4 +35,4 @@ EOL
 sudo systemctl reload nginx
 
 # Output success message
-sudo echo "Nginx configured with custom header X-Served-By: $HOSTNAME"
+echo "Nginx configured with custom header X-Served-By: $HOSTNAME"
