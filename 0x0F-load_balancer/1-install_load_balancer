@@ -13,8 +13,8 @@ frontend eodenyire.tech
 
 backend web_servers
         balance roundrobin
-        server 64820-web-01 100.26.152.157:80
-        server 64820-web-02 52.86.102.6:80
+        server 12025-web-01 54.237.58.68:80
+        server 12025-web-02 52.207.70.223:80
 ' >> /etc/haproxy/haproxy.cfg
 
 # Restart HAproxy service
