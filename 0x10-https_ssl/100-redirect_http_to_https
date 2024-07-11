@@ -40,7 +40,7 @@ frontend eodenyire-frontend
         http-request set-header X_Forwarded-Proto http
         default_backend eodenyire-backend
 
-frontend eodenyire-frontend-https
+frontend clickviral-frontend-https
         bind *:443 ssl crt /etc/haproxy/certs/eodenyire.tech.pem
         http-request set-header X-Forwarded-Proto https
         default_backend eodenyire-backend
