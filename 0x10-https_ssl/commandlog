@@ -1,10 +1,65 @@
+Task 0: HAProxy Installation and Basic Configuration
+-------------------------------------------------------
+# Update package lists
 sudo apt update
-sudo apt install snapd
-sudo apt-get remove certbot
-sudo apt-get install certbot
+# Install HAProxy
+sudo apt install haproxy
+# Start and enable HAProxy service
+sudo systemctl start haproxy
+sudo systemctl enable haproxy
+# Check the status of HAProxy
+sudo systemctl status haproxy
+# Verify HAProxy is listening on ports
+sudo ss -tuln
+
+Task 1: HAProxy SSL Termination
+---------------------------------------------------------
+# Install Certbot for SSL certificate management
+sudo apt install certbot
+# Obtain SSL certificate using Certbot
+sudo certbot certonly --standalone -d www.eodenyire.tech
+# Configure HAProxy for SSL termination
+# Edit /etc/haproxy/haproxy.cfg and add the following configuration:
+
+frontend https_front
+	bind *:443 ssl crt /etc/letsencrypt/live/www.eodenyire.tech/fullchain.pem(Confirm in teh configuration file)
+	default_backend web_servers
+
+backend web_servers
+	server web1 127.0.0.1:80 check
+
+# Restart HAProxy to apply changes
+sudo systemctl restart haproxy
+
+# Validate HTTPS functionality
+curl -sI https://www.eodenyire.tech
+
+Task 2: Redirecting HTTP to HTTPS
+--------------------------------------------------------------------
+# Edit /etc/haproxy/haproxy.cfg to include HTTP to HTTPS redirection:
+
+frontend http_front
+	bind *:80
+	redirect scheme https code 301 if !{ ssl_fc }
+
+frontend https_front
+	bind *:443 ssl crt /etc/letsencrypt/live/www.eodenyire.tech/fullchain.pem(Confirm in the configuration files shared)
+	default_backend web_servers
+
+# Restart HAProxy to apply changes
+sudo systemctl restart haproxy
+
+# Validate HTTP to HTTPS redirection
+curl -sIL http://www.eodenyire.tech
+
+
+#Give access to the certificates and keys to HAProxy
+sudo chown -R haproxy:haproxy /etc/letsencrypt/archive/www.eodenyire.tech/
+sudo chmod -R 600 /etc/letsencrypt/archive/www.eodenyire.tech/
+sudo chown -R haproxy:haproxy /etc/letsencrypt/live/www.eodenyire.tech/
+sudo chmod -R 600 /etc/letsencrypt/live/www.eodenyire.tech/
+
+#Installing certbot without renewal confirmations
 sudo certbot certonly --standalone --preferred-challenges http --http-01-port 80 -d eodenyire.tech -d www.eodenyire.tech --register-unsafely-without-email
-sudo ls /etc/letsencrypt/live/eodenyire.tech
-sudo mkdir -p /etc/haproxy/certs
-DOMAIN='eodenyire.tech' sudo -E bash -c 'cat /etc/letsencrypt/live/$DOMAIN/fullchain.pem /etc/letsencrypt/live/$DOMAIN/privkey.pem > /etc/haproxy/certs/$DOMAIN.pem'
-sudo chmod -R go-rwx /etc/haproxy/certs
-sudo nano /etc/haproxy/haproxy.cfg
+
+## Note that, this is just a draft. I will update it with my final command history - 2024 12th of July
