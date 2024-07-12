@@ -47,5 +47,5 @@ frontend eodenyire-frontend-https
 
 backend eodenyire-backend
         balance roundrobin
-        server 12025-web-01 54.174.19.32:80 check
-        server 12025-web-02 54.173.17.107:80 check
+        server 12025-web-01 3.85.168.22:80 check
+        server 12025-web-02 100.25.132.173:80 check
