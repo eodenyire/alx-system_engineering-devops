@@ -39,7 +39,3 @@ For collaborations or inquiries related to this project, please contact:
 
 Feel free to reach out for discussions, collaborations, or further information about the project.
 
----
-
-This README.md file provides a concise overview of the completed tasks, project purpose, and contact details for collaboration. Customize the details such as email, LinkedIn profile link, and project specifics based on your actual project and preferences.
-
