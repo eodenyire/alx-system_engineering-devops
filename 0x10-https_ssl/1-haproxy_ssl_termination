@@ -41,8 +41,3 @@ frontend https_front
 	bind *:443 ssl crt /etc/letsencrypt/live/www.eodenyire.tech/example.com.pem
 	http-request set-header X-Forwarded-Proto https if { ssl_fc }
 	default_backend http_back
-
-backend http_back
-	balance roundrobin
-	server web1 3.85.168.22:80 check
-	server web2 100.25.132.173:80 check
