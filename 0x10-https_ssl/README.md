@@ -1,6 +1,4 @@
 # 0x10. HTTPS SSL
-# ALX Systems Engineering DevOps Project: 
-# HTTPS SSL Configuration with HAProxy
 
 Welcome to my project repository for the ALX Software Engineering Program, focusing on implementing HTTPS SSL configuration using HAProxy.
 
