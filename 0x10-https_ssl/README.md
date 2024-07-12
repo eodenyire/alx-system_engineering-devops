@@ -25,7 +25,7 @@ This project demonstrates the implementation of HAProxy for HTTPS SSL terminatio
 - Implemented HAProxy configuration to automatically redirect HTTP traffic to HTTPS.
 - Verified HTTP to HTTPS redirection using curl commands.
 
-## About Emmanuel Odenyire Anyira
+## Author
 
 Emmanuel Odenyire Anyira is a Senior Data Analytics Engineer - BI at Safaricom PLC and a graduate student at The Cooperative University of Kenya pursuing a Masters of Science in Data Science. Emmanuel is also actively participating in the ALX Software Engineering Program, enhancing skills in systems engineering and DevOps practices.
 
