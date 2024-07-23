@@ -1,1 +1,4 @@
-
+#!/usr/bin/env bash
+# Executes the 'whoami' command as the user specified by the script's argument.
+# Usage: ./script.sh <username>
+sudo -u "$1" whoami
