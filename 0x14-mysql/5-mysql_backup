@@ -9,3 +9,4 @@ fi
 
 # Create a MySQL dump of all databases and compress it in one step
 mysqldump -uroot -p"$1" --all-databases | gzip > "$(date +%d-%m-%Y).tar.gz"
+mysqldump -uroot --password="$11" --all-databases > backup.sql
