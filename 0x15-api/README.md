@@ -38,7 +38,7 @@ pip install requests pandas
 Run the script to gather data from the API:
 
 bash
-python3 0-gather_data_from_an_API.py
+python3 0-gather_data_from_an_API.py 
 
 * Export Data to CSV:
 
@@ -72,10 +72,10 @@ I am Emmanuel Odenyire Anyira, a Senior Data Analytics Engineer at Safaricom PLC
 
 ## Professional Experience:
 
-Technical Support Engineer at Kenya Development Corporation Limited, Industrial and Commercial Development Corporation, and Sote Hub.
-Head of ICT and ICT Instructor at Mucho Mangoes Limited, managing the 21st Century Digital Century Program to train rural farmers.
-IT Intern at Taita Taveta County and IP Networks Intern at Huawei Technologies Kenya Limited.
-ICT Voter Registration Assistant with the Independent Electoral and Boundaries Commission and Content Supervisor - KPHC by Kenya National Bureau of Statistics.
+- Technical Support Engineer at Kenya Development Corporation Limited, Industrial and Commercial Development Corporation, and Sote Hub.
+- Head of ICT and ICT Instructor at Mucho Mangoes Limited, managing the 21st Century Digital Century Program to train rural farmers.
+- IT Intern at Taita Taveta County and IP Networks Intern at Huawei Technologies Kenya Limited.
+- ICT Voter Registration Assistant with the Independent Electoral and Boundaries Commission and Content Supervisor - KPHC by Kenya National Bureau of Statistics.
 
 ## Education:
 
