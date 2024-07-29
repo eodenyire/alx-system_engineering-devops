@@ -24,61 +24,63 @@ To set up the project and run the scripts, follow these steps:
    git clone https://github.com/eodenyire/alx-system_engineering-devops.git
    cd alx-system_engineering-devops/0x15-api
 
-Install Dependencies:
+2. **Install Dependencies:**
 
-Ensure you have Python 3 installed. You may need additional Python packages depending on the scripts used. You can install the necessary packages with:
+Ensure you have Python 3 installed. You may need additional Python packages depending on the scripts used. You can install necessary packages with:
 
 bash
-Copy code
 pip install requests pandas
-Usage:
 
-Gather Data from API:
+## Usage:
+
+* Gather Data from API:
 
 Run the script to gather data from the API:
 
 bash
-Copy code
 python3 0-gather_data_from_an_API.py
-Export Data to CSV:
+
+* Export Data to CSV:
 
 Run the script to export the data to a CSV file:
 
 bash
-Copy code
 python3 1-export_to_CSV.py
-Export Data to JSON:
+
+* Export Data to JSON:
 
 Run the script to export the data to a JSON file:
 
 bash
-Copy code
 python3 2-export_to_JSON.py
-Convert Data to Dictionary Format:
+
+* Convert Data to Dictionary Format:
 
 Run the script to convert the data to a dictionary of lists of dictionaries format:
 
 bash
-Copy code
 python3 3-dictionary_of_list_of_dictionaries.py
-Contact Information
+
+## Contact Information
 For collaborations or inquiries, please contact me:
 
 Email: eodenyire@gmail.com
 LinkedIn: Emmanuel Odenyire
-About Me
+
+## About Me
 I am Emmanuel Odenyire Anyira, a Senior Data Analytics Engineer at Safaricom PLC and a Graduate Student in the Masters of Science in Data Science program at The Cooperative University of Kenya. I am also an ALX Software Engineering student.
 
-Professional Experience:
+## Professional Experience:
 
 Technical Support Engineer at Kenya Development Corporation Limited, Industrial and Commercial Development Corporation, and Sote Hub.
 Head of ICT and ICT Instructor at Mucho Mangoes Limited, managing the 21st Century Digital Century Program to train rural farmers.
 IT Intern at Taita Taveta County and IP Networks Intern at Huawei Technologies Kenya Limited.
 ICT Voter Registration Assistant with the Independent Electoral and Boundaries Commission and Content Supervisor - KPHC by Kenya National Bureau of Statistics.
-Education:
 
-Masters of Science in Data Science, The Co-operative University of Kenya (current)
-Bachelor of Science in Informatics from Moi University
+## Education:
+
+* Masters of Science in Data Science, The Co-operative University of Kenya (current)
+* Bachelor of Science in Informatics from Moi University
+
 Feel free to reach out if you need any assistance or collaboration.
 
-Copy code
