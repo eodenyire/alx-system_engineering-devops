@@ -19,13 +19,13 @@ This project is part of the ALX Software Engineering Program, focusing on using 
 To set up the project and run the scripts, follow these steps:
 
 1. **Clone the Repository:**
-
+   
    ```bash
    git clone https://github.com/eodenyire/alx-system_engineering-devops.git
    cd alx-system_engineering-devops/0x15-api
 
 2. **Install Dependencies:**
-
+   
 Ensure you have Python 3 installed. You may need additional Python packages depending on the scripts used. You can install necessary packages with:
 
    ```bash
@@ -35,7 +35,7 @@ Ensure you have Python 3 installed. You may need additional Python packages depe
 
 1. **Gather Data from API:**
 
-   Run the script to gather data from the API:
+Run the script to gather data from the API:
 
    ```bash
    python3 0-gather_data_from_an_API.py
@@ -57,7 +57,8 @@ Run the script to export the data to a JSON file:
 iv. **Convert Data to Dictionary Format:**
 
 Run the script to convert the data to a dictionary of lists of dictionaries format:
- ```bash
+
+```bash
 python3 3-dictionary_of_list_of_dictionaries.py
 
 ## Contact Information
