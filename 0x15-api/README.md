@@ -31,6 +31,9 @@ Ensure you have Python 3 installed. You may need additional Python packages depe
    ```bash
    pip install requests pandas
 
+2. **Install Dependencies:**
+   
+Ensure you have Python 3 installed. You may need additional Python packages depending on the scripts used. You can install necessary packages with:
 ## Usage
 
 1. **Gather Data from API:**
