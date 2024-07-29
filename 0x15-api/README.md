@@ -33,23 +33,26 @@ Ensure you have Python 3 installed. You may need additional Python packages depe
 
 ## Usage
 
-i. **Gather Data from API:**
+1. **Gather Data from API:**
 
-Run the script to gather data from the API:
- ```bash
+   Run the script to gather data from the API:
+
+   ```bash
    python3 0-gather_data_from_an_API.py
 
-ii. **Export Data to CSV:**
+2. **Export Data to CSV:**
 
 Run the script to export the data to a CSV file:
- ```bash
-python3 1-export_to_CSV.py
 
-iii. **Export Data to JSON:**
+   ```bash
+   python3 1-export_to_CSV.py
+
+3. **Export Data to JSON:**
 
 Run the script to export the data to a JSON file:
- ```bash
-python3 2-export_to_JSON.py
+
+   ```bash
+   python3 2-export_to_JSON.py
 
 iv. **Convert Data to Dictionary Format:**
 
