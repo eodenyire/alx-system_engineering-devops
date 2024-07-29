@@ -32,11 +32,13 @@ Ensure you have Python 3 installed. You may need additional Python packages depe
    pip install requests pandas
 
 ## Usage
+
 i. **Gather Data from API:**
 
 Run the script to gather data from the API:
  ```bash
    python3 0-gather_data_from_an_API.py
+
 ii. **Export Data to CSV:**
 
 Run the script to export the data to a CSV file:
@@ -44,6 +46,7 @@ Run the script to export the data to a CSV file:
 python3 1-export_to_CSV.py
 
 iii. **Export Data to JSON:**
+
 Run the script to export the data to a JSON file:
  ```bash
 python3 2-export_to_JSON.py
