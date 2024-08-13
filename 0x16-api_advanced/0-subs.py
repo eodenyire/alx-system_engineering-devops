@@ -3,17 +3,6 @@
 Function that queries the Reddit API and returns the number of subscribers
 (not active users, total subscribers) for a given subreddit.
 If an invalid subreddit is given, the function should return 0
-
-0-subs.py
-
-This module contains the function number_of_subscribers 
-which queries the Reddit API to retrieve the number of 
-subscribers for a given subreddit.
-
-Functions:
-- number_of_subscribers(subreddit): Returns the number 
-of subscribers for a given subreddit. If the subreddit 
-is invalid, returns 0.
 """
 
 import requests
