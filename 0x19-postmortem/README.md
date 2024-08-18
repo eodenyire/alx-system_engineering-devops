@@ -48,4 +48,4 @@ The solutions for this project are stored in the following GitHub repository:
 
 ---
 
-This README.md file provides a clear overview of the project, highlighting the key tasks, context, and the creator’s credentials. Make sure to replace the placeholder GitHub link with the actual URL once you have the repository set up.
+This README.md file provides a clear overview of the project, highlighting the key tasks, context, and the creator’s credentials.
