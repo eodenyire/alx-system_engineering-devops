@@ -1,0 +1,49 @@
+Use Case: Outage in AirBnB Clone Application
+Issue Summary
+Duration:
+
+Start Time: August 14, 2024, 02:00 AM (UTC)
+End Time: August 14, 2024, 03:45 AM (UTC)
+Total Duration: 1 hour 45 minutes
+Impact:
+
+The AirBnB clone application was inaccessible to users during this period.
+Affected Services: All user-facing services including booking, property browsing, and user authentication.
+Approximately 85% of users experienced issues accessing the platform.
+Root Cause:
+
+A misconfigured SSL certificate on the Nginx server, coupled with an outdated HAProxy configuration, caused a failure in secure communication between the backend services and the load balancer. This led to the complete shutdown of the application's ability to serve user requests.
+Timeline
+02:00 AM: Issue detected through automated monitoring alerts indicating a significant drop in successful HTTP requests.
+02:05 AM: Initial investigation by on-call engineer focused on the backend services (Django) suspected of causing the outage.
+02:15 AM: Further investigation showed no issues with the Django application. Attention shifted to Nginx and HAProxy.
+02:30 AM: The SSL certificate misconfiguration on Nginx was identified as the root cause. However, attempts to resolve the issue were hindered by an outdated HAProxy configuration that failed to recognize the newly updated SSL certificates.
+03:00 AM: The incident was escalated to the DevOps team responsible for the infrastructure.
+03:15 AM: The DevOps team updated the HAProxy configuration and restarted the Nginx server.
+03:30 AM: System was tested, and normal operations were restored.
+03:45 AM: The incident was officially resolved, and the system was fully operational.
+Root Cause and Resolution
+Root Cause:
+The outage was caused by a misconfigured SSL certificate on the Nginx server. This was compounded by an outdated HAProxy configuration that did not accommodate the new SSL certificates, causing a breakdown in secure communication between the backend services and the load balancer.
+
+Resolution:
+The issue was resolved by updating the HAProxy configuration to recognize the new SSL certificates and restarting the Nginx server. This restored secure communication and allowed the application to resume normal operations.
+
+Corrective and Preventative Measures
+Improvements:
+
+Implement a more robust SSL certificate management process to ensure configurations are consistently updated across all services.
+Enhance monitoring to include checks for SSL and HAProxy configurations to detect issues before they cause outages.
+Actionable Tasks:
+
+Patch and update Nginx and HAProxy configurations to prevent SSL misconfigurations.
+Implement automated configuration testing for SSL and HAProxy during deployment processes.
+Schedule regular audits of SSL certificates and HAProxy configurations.
+Train the on-call engineers on identifying and troubleshooting SSL and load balancing issues.
+This postmortem serves as a learning experience to strengthen the resilience of the AirBnB clone application and prevent similar outages in the future.
+
+
+
+
+
+
