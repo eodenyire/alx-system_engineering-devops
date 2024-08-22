@@ -1,1 +1,3 @@
-
+#!/bin/bash
+# reloading gunicorn.
+grep gunicorn | xargs kill -HUP
