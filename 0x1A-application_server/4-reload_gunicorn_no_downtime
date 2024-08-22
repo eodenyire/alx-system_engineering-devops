@@ -1,21 +1,4 @@
-#!/bin/bash
-# File: 4-reload_gunicorn_no_downtime
+#!/usr/bin/env bash
+# Gracefully reloads Gunicorn.
 
-# Get the PID of the Gunicorn master process
-MASTER_PID=$(pgrep -f 'gunicorn: master' | head -n 1)
-
-if [ -z "$MASTER_PID" ]; then
-    echo "Gunicorn master process not found."
-    exit 1
-fi
-
-echo "Sending SIGHUP signal to Gunicorn master process (PID: $MASTER_PID)..."
-
-# Send SIGHUP to the Gunicorn master process for a graceful reload
-kill -HUP "$MASTER_PID"
-
-# Wait for a moment to ensure reload is in process
-sleep 5
-
-# Verify that new workers are running
-ps auxf | grep 'gunicorn' | grep -v 'grep'
+ps aux | grep gunicorn | awk '{ print $2 }' | xargs kill -HUP
